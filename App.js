@@ -10,7 +10,7 @@ const generateColor = () => {
   return `#${randomColor}`;
 };
 
-const getItemCount = (data) => 500;
+const getItemCount = (data) => 50000;
 
 const getItem = (data, index) => {
   if (map.has(index)) {
