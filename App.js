@@ -1,52 +1,54 @@
 import React from 'react';
 import { StyleSheet, Text, SafeAreaView, View, VirtualizedList } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { HomeScreen } from './src/components/HomeScreen';
 
-const map = new Map();
+import { Amplify } from 'aws-amplify';
+import awsExports from './src/aws-exports';
+Amplify.configure(awsExports);
 
-const generateColor = () => {
-  const randomColor = Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, '0');
-  return `#${randomColor}`;
-};
+const Tab = createBottomTabNavigator();
 
-const getItemCount = (data) => 50000;
-
-const getItem = (data, index) => {
-  if (map.has(index)) {
-    return map.get(index);
-  }
-
-  let item = {
-    key: Math.random().toString(12).substring(0),
-    color: generateColor(),
-  };
-  map.set(index, item);
-  return item;
-}
-
-const renderPost = ({ item }) => {
+const MyTabs = () => {
   return (
-    <View style={styles.post}>
-      <Text style={styles.userName}>{item.color}</Text>
-      <View style={[styles.square, {backgroundColor: item.color}]} />
-    </View>
-  );
+    <Tab.Navigator screenOptions={default_options}>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Create" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={HomeScreen} />
+    </Tab.Navigator>
+  )
 }
 
 export default function App() {
+  
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.header}>Scroll</Text>
-      <VirtualizedList
-        style={styles.scrollView}
-        data={[]}
-        initialNumToRender={4}
-        renderItem={renderPost}
-        getItemCount={getItemCount}
-        getItem={getItem} />
+      <NavigationContainer>
+        <MyTabs />
+      </NavigationContainer>
     </SafeAreaView>
   );
+}
+
+const default_options = {
+  headerShown: false,
+  tabBarLabel: '●',
+  tabBarShowLabel: false,
+  tabBarStyle: {
+    backgroundColor: '#000',
+  },
+  // headerStyle: {
+  //   backgroundColor: '#000',
+  // },
+  // headerTintColor: '#fff',
+  // headerTitleStyle: {
+  //   color: '#fff',
+  //   fontSize: 32,
+  //   fontWeight: 'bold',
+  //   padding: 6,
+  // }
 }
 
 const styles = StyleSheet.create({
@@ -63,17 +65,5 @@ const styles = StyleSheet.create({
   scrollView: {
     borderTopWidth: 1,
     borderTopColor: "#333",
-  },
-  post: {
-    marginBottom: 6,
-  },
-  userName: {
-    color: "#fff",
-    fontWeight: "bold",
-    padding: 12,
-  },
-  square: {
-    flex: 1,
-    height: 400,
   },
 });
