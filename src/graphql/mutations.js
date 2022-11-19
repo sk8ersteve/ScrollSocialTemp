@@ -7,17 +7,51 @@ export const createUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     createUser(input: $input, condition: $condition) {
-      userID
+      id
+      owner
       posts {
+        items {
+          id
+          owner
+          color
+          createdAt
+          updatedAt
+          userPostsId
+        }
         nextToken
       }
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       following {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       followers {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -31,17 +65,51 @@ export const updateUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     updateUser(input: $input, condition: $condition) {
-      userID
+      id
+      owner
       posts {
+        items {
+          id
+          owner
+          color
+          createdAt
+          updatedAt
+          userPostsId
+        }
         nextToken
       }
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       following {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       followers {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -55,61 +123,51 @@ export const deleteUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     deleteUser(input: $input, condition: $condition) {
-      userID
+      id
+      owner
       posts {
+        items {
+          id
+          owner
+          color
+          createdAt
+          updatedAt
+          userPostsId
+        }
         nextToken
       }
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       following {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       followers {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    createPost(input: $input, condition: $condition) {
-      id
-      userID
-      user {
-        userID
-        createdAt
-        updatedAt
-      }
-      color
-      feedItems {
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    updatePost(input: $input, condition: $condition) {
-      id
-      userID
-      user {
-        userID
-        createdAt
-        updatedAt
-      }
-      color
-      feedItems {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -124,45 +182,41 @@ export const deletePost = /* GraphQL */ `
   ) {
     deletePost(input: $input, condition: $condition) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       color
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createFeedItem = /* GraphQL */ `
-  mutation CreateFeedItem(
-    $input: CreateFeedItemInput!
-    $condition: ModelFeedItemConditionInput
-  ) {
-    createFeedItem(input: $input, condition: $condition) {
-      id
-      userID
-      user {
-        userID
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        userID
-        color
-        createdAt
-        updatedAt
-      }
-      liked
-      createdAt
-      updatedAt
-      postFeedItemsId
+      userPostsId
     }
   }
 `;
@@ -173,22 +227,46 @@ export const updateFeedItem = /* GraphQL */ `
   ) {
     updateFeedItem(input: $input, condition: $condition) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       post {
         id
-        userID
+        owner
+        user {
+          id
+          owner
+          createdAt
+          updatedAt
+        }
         color
+        feedItems {
+          nextToken
+        }
         createdAt
         updatedAt
+        userPostsId
       }
       liked
       createdAt
       updatedAt
+      userFeedItemsId
       postFeedItemsId
     }
   }
@@ -200,47 +278,47 @@ export const deleteFeedItem = /* GraphQL */ `
   ) {
     deleteFeedItem(input: $input, condition: $condition) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       post {
         id
-        userID
+        owner
+        user {
+          id
+          owner
+          createdAt
+          updatedAt
+        }
         color
+        feedItems {
+          nextToken
+        }
         createdAt
         updatedAt
+        userPostsId
       }
       liked
       createdAt
       updatedAt
+      userFeedItemsId
       postFeedItemsId
-    }
-  }
-`;
-export const createFollow = /* GraphQL */ `
-  mutation CreateFollow(
-    $input: CreateFollowInput!
-    $condition: ModelFollowConditionInput
-  ) {
-    createFollow(input: $input, condition: $condition) {
-      id
-      followerID
-      follower {
-        userID
-        createdAt
-        updatedAt
-      }
-      followedID
-      followed {
-        userID
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -251,15 +329,42 @@ export const updateFollow = /* GraphQL */ `
   ) {
     updateFollow(input: $input, condition: $condition) {
       id
+      owner
       followerID
       follower {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       followedID
       followed {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -275,15 +380,234 @@ export const deleteFollow = /* GraphQL */ `
   ) {
     deleteFollow(input: $input, condition: $condition) {
       id
+      owner
       followerID
       follower {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       followedID
       followed {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createPost = /* GraphQL */ `
+  mutation CreatePost(
+    $input: CreatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    createPost(input: $input, condition: $condition) {
+      id
+      owner
+      user {
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      color
+      feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      userPostsId
+    }
+  }
+`;
+export const updatePost = /* GraphQL */ `
+  mutation UpdatePost(
+    $input: UpdatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    updatePost(input: $input, condition: $condition) {
+      id
+      owner
+      user {
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      color
+      feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      userPostsId
+    }
+  }
+`;
+export const createFeedItem = /* GraphQL */ `
+  mutation CreateFeedItem(
+    $input: CreateFeedItemInput!
+    $condition: ModelFeedItemConditionInput
+  ) {
+    createFeedItem(input: $input, condition: $condition) {
+      id
+      owner
+      user {
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        owner
+        user {
+          id
+          owner
+          createdAt
+          updatedAt
+        }
+        color
+        feedItems {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        userPostsId
+      }
+      liked
+      createdAt
+      updatedAt
+      userFeedItemsId
+      postFeedItemsId
+    }
+  }
+`;
+export const createFollow = /* GraphQL */ `
+  mutation CreateFollow(
+    $input: CreateFollowInput!
+    $condition: ModelFollowConditionInput
+  ) {
+    createFollow(input: $input, condition: $condition) {
+      id
+      owner
+      followerID
+      follower {
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      followedID
+      followed {
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }

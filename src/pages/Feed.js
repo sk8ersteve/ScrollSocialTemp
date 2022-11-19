@@ -1,10 +1,23 @@
 // import React from 'react';
 import { StyleSheet, VirtualizedList } from 'react-native';
-import { Post } from './Post';
+import { Post } from '../components/Post';
+import { API, graphqlOperation } from 'aws-amplify';
+import { useEffect } from 'react';
 
 const map = new Map();
 
-export const HomeScreen = () => {
+export const Feed = () => {
+
+  useEffect(() => {
+    // fetchFeedItems()
+  }, [])
+
+  async function fetchFeedItems() {
+    try {
+      const feedData = await API.graphql(graphqlOperation(getUser, {userID: userID}))
+      const feedItems = feedData.data.items.feedItems;
+    } catch (err) { console.log('error fetching feed items') }
+  }
 
   const getItemCount = (data) => 50000;
 

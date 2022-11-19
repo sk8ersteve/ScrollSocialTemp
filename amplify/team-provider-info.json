@@ -12,6 +12,9 @@
       "AmplifyAppId": "d6el9pxw0cgdq"
     },
     "categories": {
+      "auth": {
+        "scrollb7b29dc0": {}
+      },
       "api": {
         "scroll": {}
       }

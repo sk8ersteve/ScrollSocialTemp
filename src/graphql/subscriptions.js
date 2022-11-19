@@ -2,19 +2,56 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
-      userID
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
+      id
+      owner
       posts {
+        items {
+          id
+          owner
+          color
+          createdAt
+          updatedAt
+          userPostsId
+        }
         nextToken
       }
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       following {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       followers {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -23,19 +60,56 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
-      userID
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
+      id
+      owner
       posts {
+        items {
+          id
+          owner
+          color
+          createdAt
+          updatedAt
+          userPostsId
+        }
         nextToken
       }
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       following {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       followers {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -44,19 +118,56 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
-      userID
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
+      id
+      owner
       posts {
+        items {
+          id
+          owner
+          color
+          createdAt
+          updatedAt
+          userPostsId
+        }
         nextToken
       }
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       following {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       followers {
+        items {
+          id
+          owner
+          followerID
+          followedID
+          createdAt
+          updatedAt
+        }
         nextToken
       }
       createdAt
@@ -65,147 +176,336 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
-    onCreatePost(filter: $filter) {
+  subscription OnCreatePost(
+    $filter: ModelSubscriptionPostFilterInput
+    $owner: String
+  ) {
+    onCreatePost(filter: $filter, owner: $owner) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       color
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       createdAt
       updatedAt
+      userPostsId
     }
   }
 `;
 export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
-    onUpdatePost(filter: $filter) {
+  subscription OnUpdatePost(
+    $filter: ModelSubscriptionPostFilterInput
+    $owner: String
+  ) {
+    onUpdatePost(filter: $filter, owner: $owner) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       color
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       createdAt
       updatedAt
+      userPostsId
     }
   }
 `;
 export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
-    onDeletePost(filter: $filter) {
+  subscription OnDeletePost(
+    $filter: ModelSubscriptionPostFilterInput
+    $owner: String
+  ) {
+    onDeletePost(filter: $filter, owner: $owner) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       color
       feedItems {
+        items {
+          id
+          owner
+          liked
+          createdAt
+          updatedAt
+          userFeedItemsId
+          postFeedItemsId
+        }
         nextToken
       }
       createdAt
       updatedAt
+      userPostsId
     }
   }
 `;
 export const onCreateFeedItem = /* GraphQL */ `
-  subscription OnCreateFeedItem($filter: ModelSubscriptionFeedItemFilterInput) {
-    onCreateFeedItem(filter: $filter) {
+  subscription OnCreateFeedItem(
+    $filter: ModelSubscriptionFeedItemFilterInput
+    $owner: String
+  ) {
+    onCreateFeedItem(filter: $filter, owner: $owner) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       post {
         id
-        userID
+        owner
+        user {
+          id
+          owner
+          createdAt
+          updatedAt
+        }
         color
+        feedItems {
+          nextToken
+        }
         createdAt
         updatedAt
+        userPostsId
       }
       liked
       createdAt
       updatedAt
+      userFeedItemsId
       postFeedItemsId
     }
   }
 `;
 export const onUpdateFeedItem = /* GraphQL */ `
-  subscription OnUpdateFeedItem($filter: ModelSubscriptionFeedItemFilterInput) {
-    onUpdateFeedItem(filter: $filter) {
+  subscription OnUpdateFeedItem(
+    $filter: ModelSubscriptionFeedItemFilterInput
+    $owner: String
+  ) {
+    onUpdateFeedItem(filter: $filter, owner: $owner) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       post {
         id
-        userID
+        owner
+        user {
+          id
+          owner
+          createdAt
+          updatedAt
+        }
         color
+        feedItems {
+          nextToken
+        }
         createdAt
         updatedAt
+        userPostsId
       }
       liked
       createdAt
       updatedAt
+      userFeedItemsId
       postFeedItemsId
     }
   }
 `;
 export const onDeleteFeedItem = /* GraphQL */ `
-  subscription OnDeleteFeedItem($filter: ModelSubscriptionFeedItemFilterInput) {
-    onDeleteFeedItem(filter: $filter) {
+  subscription OnDeleteFeedItem(
+    $filter: ModelSubscriptionFeedItemFilterInput
+    $owner: String
+  ) {
+    onDeleteFeedItem(filter: $filter, owner: $owner) {
       id
-      userID
+      owner
       user {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       post {
         id
-        userID
+        owner
+        user {
+          id
+          owner
+          createdAt
+          updatedAt
+        }
         color
+        feedItems {
+          nextToken
+        }
         createdAt
         updatedAt
+        userPostsId
       }
       liked
       createdAt
       updatedAt
+      userFeedItemsId
       postFeedItemsId
     }
   }
 `;
 export const onCreateFollow = /* GraphQL */ `
-  subscription OnCreateFollow($filter: ModelSubscriptionFollowFilterInput) {
-    onCreateFollow(filter: $filter) {
+  subscription OnCreateFollow(
+    $filter: ModelSubscriptionFollowFilterInput
+    $owner: String
+  ) {
+    onCreateFollow(filter: $filter, owner: $owner) {
       id
+      owner
       followerID
       follower {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       followedID
       followed {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -215,18 +515,48 @@ export const onCreateFollow = /* GraphQL */ `
   }
 `;
 export const onUpdateFollow = /* GraphQL */ `
-  subscription OnUpdateFollow($filter: ModelSubscriptionFollowFilterInput) {
-    onUpdateFollow(filter: $filter) {
+  subscription OnUpdateFollow(
+    $filter: ModelSubscriptionFollowFilterInput
+    $owner: String
+  ) {
+    onUpdateFollow(filter: $filter, owner: $owner) {
       id
+      owner
       followerID
       follower {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       followedID
       followed {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -236,18 +566,48 @@ export const onUpdateFollow = /* GraphQL */ `
   }
 `;
 export const onDeleteFollow = /* GraphQL */ `
-  subscription OnDeleteFollow($filter: ModelSubscriptionFollowFilterInput) {
-    onDeleteFollow(filter: $filter) {
+  subscription OnDeleteFollow(
+    $filter: ModelSubscriptionFollowFilterInput
+    $owner: String
+  ) {
+    onDeleteFollow(filter: $filter, owner: $owner) {
       id
+      owner
       followerID
       follower {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }
       followedID
       followed {
-        userID
+        id
+        owner
+        posts {
+          nextToken
+        }
+        feedItems {
+          nextToken
+        }
+        following {
+          nextToken
+        }
+        followers {
+          nextToken
+        }
         createdAt
         updatedAt
       }

@@ -1,34 +1,50 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type User @model @auth(rules: [{ allow: public, operations: [create, read] }]) {
-  userID: ID! @primaryKey
-  posts: [Post] @hasMany(indexName: "byUser", fields: ["userID"])
-  feedItems: [FeedItem] @hasMany(indexName: "byUser", fields: ["userID"])
-  following: [Follow] @hasMany(indexName: "byFollower", fields: ["userID"])
-  followers: [Follow] @hasMany(indexName: "byFollowed", fields: ["userID"])
-}
-
-type Post @model @auth(rules: [{ allow: public, operations: [create, read] }]) {
+type User @model @auth(rules: [
+  { allow: public, operations: [read] },
+  { allow: owner }
+]) {
   id: ID!
-  userID: ID! @index(name: "byUser")
-  user: User! @belongsTo(fields: ["userID"])
-  color: String!
+  owner: String
+  posts: [Post] @hasMany
   feedItems: [FeedItem] @hasMany
+  following: [Follow] @hasMany(indexName: "byFollower", fields: ["id"])
+  followers: [Follow] @hasMany(indexName: "byFollowed", fields: ["id"])
 }
 
-type FeedItem @model @auth(rules: [{ allow: public, operations: [create, read] }]) {
+type Post @model @auth(rules: [
+  { allow: public, operations: [create, read] },
+  { allow: owner }
+]) {
   id: ID!
-  userID: ID! @index(name: "byUser")
-  user: User! @belongsTo(fields: ["userID"])
+  owner: String
+  user: User! @belongsTo
+  color: String!
+  feedItems: [FeedItem] @hasMany @auth(rules: [{ allow: public }])
+}
+
+# One issue: anyone can post feedItems to anyone else feed. May have to filter
+# these out at app
+# Creating these would be better left up to a lambda function
+type FeedItem @model @auth(rules: [
+  { allow: public, operations: [create, read] },
+  { allow: owner }
+]) {
+  id: ID!
+  owner: String
+  user: User! @belongsTo
   post: Post! @belongsTo
-  # use likedPost+likeUser instead?
   liked: Boolean
 }
 
-type Follow @model @auth(rules: [{ allow: public, operations: [create, read] }]) {
+type Follow @model @auth(rules: [
+  { allow: public, operations: [create, read] },
+  { allow: owner }
+]) {
   id: ID!
+  owner: String
   followerID: ID! @index(name: "byFollower")
   follower: User! @belongsTo(fields: ["followerID"])
   followedID: ID! @index(name: "byFollowed")

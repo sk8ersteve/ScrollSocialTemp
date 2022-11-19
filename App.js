@@ -1,35 +1,70 @@
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView, View, VirtualizedList } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from './src/components/HomeScreen';
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, SafeAreaView } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Splash } from './src/pages/Splash'
+import { SignIn } from './src/pages/SignIn'
+import { Feed } from './src/pages/Feed'
 
-import { Amplify } from 'aws-amplify';
-import awsExports from './src/aws-exports';
-Amplify.configure(awsExports);
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import awsExports from './src/aws-exports'
+
+Amplify.configure(awsExports)
 
 const Tab = createBottomTabNavigator();
 
-const MyTabs = () => {
-  return (
-    <Tab.Navigator screenOptions={default_options}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Create" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={HomeScreen} />
-    </Tab.Navigator>
-  )
-}
-
 export default function App() {
-  
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Scroll</Text>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
-    </SafeAreaView>
-  );
+
+  const [signInState, setSignInState] = useState("loading");
+
+  useEffect(() => {
+    console.log("Fetching user")
+    fetchUser()
+  }, [])
+
+  async function fetchUser() {
+    try {
+      const user = await Auth.currentAuthenticatedUser()
+      console.log("app start current user: " + user.getUsername())
+      setSignInState("signedIn")
+    } catch (e) {
+      console.log("not logged in buddy")
+      setSignInState("signIn")
+    }
+  }
+
+  Hub.listen('auth', (data) => {
+    const event = data.payload.event
+    console.log('Hub: event:', event)
+    if (event === "signIn") {
+      const user = data.payload.data
+      console.log('Hub: username: ' + user.getUsername())
+    }
+  });
+
+  if (signInState == "loading") {
+    return <Splash />
+  }
+
+  if (signInState == "signIn") {
+    return <SignIn />
+  }
+
+  if (signInState == "signedIn") {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.header}>Scroll</Text>
+        <NavigationContainer>
+          <Tab.Navigator screenOptions={default_options}>
+            <Tab.Screen name="Home" component={Feed} />
+            <Tab.Screen name="Create" component={Feed} />
+            <Tab.Screen name="Profile" component={Feed} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </SafeAreaView>
+    );
+  }
+
 }
 
 const default_options = {
